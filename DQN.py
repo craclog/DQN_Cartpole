@@ -16,8 +16,8 @@ class DQN:
             self._X = tf.placeholder(tf.float32, [None, self.input_size], name="input_x")
             self._Y = tf.placeholder(shape=[None, self.output_size], dtype=tf.float32)
 
-            l1 = tf.layers.dense(inputs=self._X, units=100, activation=tf.nn.tanh)
-            l2 = tf.layers.dense(inputs=l1, units=100, activation=tf.nn.tanh)
+            l1 = tf.layers.dense(inputs=self._X, units=256, activation=tf.nn.tanh)
+            l2 = tf.layers.dense(inputs=l1, units=256, activation=tf.nn.tanh)
 
             self._Qpred = tf.layers.dense(inputs=l2, units=self.output_size)
             self._loss = tf.reduce_mean(tf.square(self._Y - self._Qpred))

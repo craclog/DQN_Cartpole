@@ -67,14 +67,13 @@ def get_epsilon(t):
 def bot_play(mainDQN):
     s = env.reset()
     reward_sum = 0
-    while True:
+    done = False
+    while not done:
         env.render()
         a = np.argmax(mainDQN.predict(s))
         s, reward, done, _ = env.step(a)
         reward_sum += reward
-        if done:
-            print("Total score: {}".format(reward_sum))
-            break
+    print("Total score: {}".format(reward_sum))
 
 
 def main():
@@ -119,10 +118,10 @@ def main():
             print("Episode: {} steps: {}".format(episode, step_count))
 
             steps.append(step_count)
-            # if recent 10 episodes' steps mean > 200, break -> success
+            # if recent 10 episodes' steps mean > 300, break -> success
             if len(steps) > 10:
                 steps.pop(0)
-                if np.mean(steps, axis=0) > 200:
+                if np.mean(steps, axis=0) > 300:
                     break
 
             if episode % 10 == 1:
